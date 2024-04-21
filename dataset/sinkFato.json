@@ -1,0 +1,130 @@
+{
+	"name": "sinkFato",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fiapersdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SK_MC_PESQ_SATISF_PROD",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_TEMPO_SK_MC_TEMPO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_BAIRRO_SK_BAIRRO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_DISTRIBUICAO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_PRODUTO_SK_PRODUTO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_FUNCIONARIO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_CLIENTE_SK_CLIENTE",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_COLECAO_STATUS",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "SK_PEDIDO_VENDA",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "VL_UNITARIO",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "QT_VENDA",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 4
+			},
+			{
+				"name": "VL_TOT_VENDA",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "VL_PERC_ICMS",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "QT_VENDA_ENTREGUE",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 4
+			},
+			{
+				"name": "QT_NOTA_EMBALAGEM",
+				"type": "decimal",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "QT_NOTA_PONTUALIDADE",
+				"type": "decimal",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "QT_NOTA_CORTESIA",
+				"type": "decimal",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "NR_PEDIDO_ORIGEM",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "NR_ITEM_PEDIDO_ORIGEM",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FTO_ENTREGA_PRD_PESQ_SATISF_CD"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

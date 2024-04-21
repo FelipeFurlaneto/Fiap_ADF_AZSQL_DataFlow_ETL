@@ -1,0 +1,40 @@
+{
+	"name": "sinkColecao",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fiapersdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SK_COLECAO_STATUS",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DS_FORMA_PAGTO",
+				"type": "varchar"
+			},
+			{
+				"name": "DS_ORIGEM_VENDA",
+				"type": "varchar"
+			},
+			{
+				"name": "DS_STATUS_VENDA",
+				"type": "varchar"
+			},
+			{
+				"name": "DS_TIPO_VNDA",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DIM_MC_COLECAO_STATUS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

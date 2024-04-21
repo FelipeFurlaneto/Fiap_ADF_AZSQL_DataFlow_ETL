@@ -1,0 +1,38 @@
+{
+	"name": "sinkProduto",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fiapersdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SK_PRODUTO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_SUB_PROD",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "NM_PRODUTO",
+				"type": "varchar"
+			},
+			{
+				"name": "NM_TIPO_EMBALAGEM",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DIM_MC_PRODUTO"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

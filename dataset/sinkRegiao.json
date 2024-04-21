@@ -1,0 +1,28 @@
+{
+	"name": "sinkRegiao",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fiapersdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SK_REGIAO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "NM_REGIAO",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DIM_MC_REGIAO"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

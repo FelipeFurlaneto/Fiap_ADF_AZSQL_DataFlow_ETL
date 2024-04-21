@@ -1,0 +1,52 @@
+{
+	"name": "sinkCidade",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fiapersdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SK_CIDADE",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_ESTADO_SK_ESTADO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "NM_CIDADE",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_POPULACAO",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CD_IBGE",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "NR_ALTITUDE_MAR",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DIM_MC_CIDADE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

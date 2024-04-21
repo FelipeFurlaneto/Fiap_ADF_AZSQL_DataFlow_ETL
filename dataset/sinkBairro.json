@@ -1,0 +1,46 @@
+{
+	"name": "sinkBairro",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "fiapersdb",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SK_BAIRRO",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "DIM_MC_CIDADE_SK_CIDADE",
+				"type": "decimal",
+				"precision": 28,
+				"scale": 0
+			},
+			{
+				"name": "NM_BAIRRO",
+				"type": "varchar"
+			},
+			{
+				"name": "NR_POPULACAO",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "NR_NIVEL_SEGURANCA",
+				"type": "decimal",
+				"precision": 1,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DIM_MC_BAIRRO"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

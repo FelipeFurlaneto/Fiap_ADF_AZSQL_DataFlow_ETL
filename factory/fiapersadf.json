@@ -1,0 +1,9 @@
+{
+	"name": "fiapersadf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8b31a22c-559b-4d1e-be42-8bb6e54a6992",
+		"tenantId": "11dbbfe2-89b8-4549-be10-cec364e59551"
+	}
+}

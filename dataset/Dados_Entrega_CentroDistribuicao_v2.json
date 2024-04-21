@@ -1,0 +1,227 @@
+{
+	"name": "Dados_Entrega_CentroDistribuicao_v2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adlsfiapers",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Informacoes_Entrega",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Dados_Entrega_CentroDistribuicao_v2.xlsx",
+				"fileSystem": "input"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "NR_CLIENTE",
+				"type": "String"
+			},
+			{
+				"name": "NOME_CLIENTE",
+				"type": "String"
+			},
+			{
+				"name": "NR_ESTRELAS",
+				"type": "String"
+			},
+			{
+				"name": "ST_CLIENTE",
+				"type": "String"
+			},
+			{
+				"name": "DT_NASCIMENTO",
+				"type": "String"
+			},
+			{
+				"name": "SIGLA_ESTADO",
+				"type": "String"
+			},
+			{
+				"name": "NOME_ESTADO",
+				"type": "String"
+			},
+			{
+				"name": "GENTILICO",
+				"type": "String"
+			},
+			{
+				"name": "NOME_REGIAO",
+				"type": "String"
+			},
+			{
+				"name": "NOME_CIDADE",
+				"type": "String"
+			},
+			{
+				"name": "NR_POPULACAO",
+				"type": "String"
+			},
+			{
+				"name": "CODIGO_IBGE",
+				"type": "String"
+			},
+			{
+				"name": "ALTITUDE",
+				"type": "String"
+			},
+			{
+				"name": "NOME_BAIRRO",
+				"type": "String"
+			},
+			{
+				"name": "NR_POPULACAO_BAIRRO",
+				"type": "String"
+			},
+			{
+				"name": "NR_NIVEL_SEGURANCA",
+				"type": "String"
+			},
+			{
+				"name": "NOME_LOGRADOURO",
+				"type": "String"
+			},
+			{
+				"name": "NR_LOGRADOURO",
+				"type": "String"
+			},
+			{
+				"name": "NR_CEP",
+				"type": "String"
+			},
+			{
+				"name": "NR_PEDIDO",
+				"type": "String"
+			},
+			{
+				"name": "NR_ITEM",
+				"type": "String"
+			},
+			{
+				"name": "DT_COMPLETA_PEDIDO",
+				"type": "String"
+			},
+			{
+				"name": "DT_PREVISTA_ENTREGA",
+				"type": "String"
+			},
+			{
+				"name": "CATEGORIA",
+				"type": "String"
+			},
+			{
+				"name": "ST_CATEGORIA",
+				"type": "String"
+			},
+			{
+				"name": "NR_AVALIACAO_CATEGORIA",
+				"type": "String"
+			},
+			{
+				"name": "SUBCATEGORIA",
+				"type": "String"
+			},
+			{
+				"name": "ST_SUB_CATEGORIA",
+				"type": "String"
+			},
+			{
+				"name": "NR_AVALIACAO_SUB_CATEGORIA",
+				"type": "String"
+			},
+			{
+				"name": "NOME_PRODUTO",
+				"type": "String"
+			},
+			{
+				"name": "EMBALAGEM",
+				"type": "String"
+			},
+			{
+				"name": "VL_UNITARIO",
+				"type": "String"
+			},
+			{
+				"name": "QUANTIDADE",
+				"type": "String"
+			},
+			{
+				"name": "VL_TOTAL",
+				"type": "String"
+			},
+			{
+				"name": "%ICMS",
+				"type": "String"
+			},
+			{
+				"name": "CD_CD",
+				"type": "String"
+			},
+			{
+				"name": "NOME_CENTRO_DISTRIBUICAO",
+				"type": "String"
+			},
+			{
+				"name": "SIGLA_ESTADO_CD",
+				"type": "String"
+			},
+			{
+				"name": "NOME_ESTADO_CD",
+				"type": "String"
+			},
+			{
+				"name": "NOME_CIDADE_CD",
+				"type": "String"
+			},
+			{
+				"name": "BAIRRO",
+				"type": "String"
+			},
+			{
+				"name": "DT_OFICIAL_ENTREGA",
+				"type": "String"
+			},
+			{
+				"name": "NOME_ENTREGADOR",
+				"type": "String"
+			},
+			{
+				"name": "QT_PROD_ENTREGUE",
+				"type": "String"
+			},
+			{
+				"name": "NOTA_EMBALAGEM",
+				"type": "String"
+			},
+			{
+				"name": "NOTA_PONTUALIDADE",
+				"type": "String"
+			},
+			{
+				"name": "NOTA_CORTESIA",
+				"type": "String"
+			},
+			{
+				"name": "STATUS VENDA",
+				"type": "String"
+			},
+			{
+				"name": "ORIGEM_VENDA",
+				"type": "String"
+			},
+			{
+				"name": "FORMA_PAGTO",
+				"type": "String"
+			},
+			{
+				"name": "TIPO_VENDA",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
