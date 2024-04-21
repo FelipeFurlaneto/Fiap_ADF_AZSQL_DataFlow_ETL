@@ -1,0 +1,1330 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "fiapersadf"
+		},
+		"adlsfiapers_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'adlsfiapers'"
+		},
+		"fiapersdb_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'fiapersdb'"
+		},
+		"adlsfiapers_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsfiapers.dfs.core.windows.net/"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/adlsfiapers')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('adlsfiapers_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('adlsfiapers_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/fiapersdb')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('fiapersdb_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Dados_Entrega_CentroDistribuicao_v2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "adlsfiapers",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "Informacoes_Entrega",
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Dados_Entrega_CentroDistribuicao_v2.xlsx",
+						"fileSystem": "input"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "NR_CLIENTE",
+						"type": "String"
+					},
+					{
+						"name": "NOME_CLIENTE",
+						"type": "String"
+					},
+					{
+						"name": "NR_ESTRELAS",
+						"type": "String"
+					},
+					{
+						"name": "ST_CLIENTE",
+						"type": "String"
+					},
+					{
+						"name": "DT_NASCIMENTO",
+						"type": "String"
+					},
+					{
+						"name": "SIGLA_ESTADO",
+						"type": "String"
+					},
+					{
+						"name": "NOME_ESTADO",
+						"type": "String"
+					},
+					{
+						"name": "GENTILICO",
+						"type": "String"
+					},
+					{
+						"name": "NOME_REGIAO",
+						"type": "String"
+					},
+					{
+						"name": "NOME_CIDADE",
+						"type": "String"
+					},
+					{
+						"name": "NR_POPULACAO",
+						"type": "String"
+					},
+					{
+						"name": "CODIGO_IBGE",
+						"type": "String"
+					},
+					{
+						"name": "ALTITUDE",
+						"type": "String"
+					},
+					{
+						"name": "NOME_BAIRRO",
+						"type": "String"
+					},
+					{
+						"name": "NR_POPULACAO_BAIRRO",
+						"type": "String"
+					},
+					{
+						"name": "NR_NIVEL_SEGURANCA",
+						"type": "String"
+					},
+					{
+						"name": "NOME_LOGRADOURO",
+						"type": "String"
+					},
+					{
+						"name": "NR_LOGRADOURO",
+						"type": "String"
+					},
+					{
+						"name": "NR_CEP",
+						"type": "String"
+					},
+					{
+						"name": "NR_PEDIDO",
+						"type": "String"
+					},
+					{
+						"name": "NR_ITEM",
+						"type": "String"
+					},
+					{
+						"name": "DT_COMPLETA_PEDIDO",
+						"type": "String"
+					},
+					{
+						"name": "DT_PREVISTA_ENTREGA",
+						"type": "String"
+					},
+					{
+						"name": "CATEGORIA",
+						"type": "String"
+					},
+					{
+						"name": "ST_CATEGORIA",
+						"type": "String"
+					},
+					{
+						"name": "NR_AVALIACAO_CATEGORIA",
+						"type": "String"
+					},
+					{
+						"name": "SUBCATEGORIA",
+						"type": "String"
+					},
+					{
+						"name": "ST_SUB_CATEGORIA",
+						"type": "String"
+					},
+					{
+						"name": "NR_AVALIACAO_SUB_CATEGORIA",
+						"type": "String"
+					},
+					{
+						"name": "NOME_PRODUTO",
+						"type": "String"
+					},
+					{
+						"name": "EMBALAGEM",
+						"type": "String"
+					},
+					{
+						"name": "VL_UNITARIO",
+						"type": "String"
+					},
+					{
+						"name": "QUANTIDADE",
+						"type": "String"
+					},
+					{
+						"name": "VL_TOTAL",
+						"type": "String"
+					},
+					{
+						"name": "%ICMS",
+						"type": "String"
+					},
+					{
+						"name": "CD_CD",
+						"type": "String"
+					},
+					{
+						"name": "NOME_CENTRO_DISTRIBUICAO",
+						"type": "String"
+					},
+					{
+						"name": "SIGLA_ESTADO_CD",
+						"type": "String"
+					},
+					{
+						"name": "NOME_ESTADO_CD",
+						"type": "String"
+					},
+					{
+						"name": "NOME_CIDADE_CD",
+						"type": "String"
+					},
+					{
+						"name": "BAIRRO",
+						"type": "String"
+					},
+					{
+						"name": "DT_OFICIAL_ENTREGA",
+						"type": "String"
+					},
+					{
+						"name": "NOME_ENTREGADOR",
+						"type": "String"
+					},
+					{
+						"name": "QT_PROD_ENTREGUE",
+						"type": "String"
+					},
+					{
+						"name": "NOTA_EMBALAGEM",
+						"type": "String"
+					},
+					{
+						"name": "NOTA_PONTUALIDADE",
+						"type": "String"
+					},
+					{
+						"name": "NOTA_CORTESIA",
+						"type": "String"
+					},
+					{
+						"name": "STATUS VENDA",
+						"type": "String"
+					},
+					{
+						"name": "ORIGEM_VENDA",
+						"type": "String"
+					},
+					{
+						"name": "FORMA_PAGTO",
+						"type": "String"
+					},
+					{
+						"name": "TIPO_VENDA",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/adlsfiapers')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkBairro')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_BAIRRO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_CIDADE_SK_CIDADE",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_BAIRRO",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_POPULACAO",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "NR_NIVEL_SEGURANCA",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_BAIRRO"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkCD')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_CENTRO_DISTRIBUICAO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_CENTRO_DISTRIBUICAO",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_CENTRO_DISTRIBUICAO"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkCategoria')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_CATEGORIA_PROD",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_CATEGORIA_PROD",
+						"type": "varchar"
+					},
+					{
+						"name": "ST_CATEGORIA",
+						"type": "varchar"
+					},
+					{
+						"name": "QT_NOTA_CATEGORIA_PROD",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_CATEGORIA_PROD"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkCidade')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_CIDADE",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_ESTADO_SK_ESTADO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_CIDADE",
+						"type": "varchar"
+					},
+					{
+						"name": "NR_POPULACAO",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 0
+					},
+					{
+						"name": "CD_IBGE",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 0
+					},
+					{
+						"name": "NR_ALTITUDE_MAR",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_CIDADE"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkColecao')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_COLECAO_STATUS",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DS_FORMA_PAGTO",
+						"type": "varchar"
+					},
+					{
+						"name": "DS_ORIGEM_VENDA",
+						"type": "varchar"
+					},
+					{
+						"name": "DS_STATUS_VENDA",
+						"type": "varchar"
+					},
+					{
+						"name": "DS_TIPO_VNDA",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_COLECAO_STATUS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkFato')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_MC_PESQ_SATISF_PROD",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_TEMPO_SK_MC_TEMPO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_BAIRRO_SK_BAIRRO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_DISTRIBUICAO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_PRODUTO_SK_PRODUTO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_FUNCIONARIO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_CLIENTE_SK_CLIENTE",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_COLECAO_STATUS",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "SK_PEDIDO_VENDA",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "VL_UNITARIO",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 2
+					},
+					{
+						"name": "QT_VENDA",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 4
+					},
+					{
+						"name": "VL_TOT_VENDA",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 2
+					},
+					{
+						"name": "VL_PERC_ICMS",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "QT_VENDA_ENTREGUE",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 4
+					},
+					{
+						"name": "QT_NOTA_EMBALAGEM",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "QT_NOTA_PONTUALIDADE",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "QT_NOTA_CORTESIA",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "NR_PEDIDO_ORIGEM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "NR_ITEM_PEDIDO_ORIGEM",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "FTO_ENTREGA_PRD_PESQ_SATISF_CD"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkProduto')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_PRODUTO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_SUB_PROD",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_PRODUTO",
+						"type": "varchar"
+					},
+					{
+						"name": "NM_TIPO_EMBALAGEM",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_PRODUTO"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkRegiao')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_REGIAO",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_REGIAO",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_REGIAO"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sinkSubcategoria')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "fiapersdb",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "SK_SUB_CATEGORIA_PROD",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "DIM_MC_CATEGORIA_PROD",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 0
+					},
+					{
+						"name": "NM_SUB_CATEGORIA_PROD",
+						"type": "varchar"
+					},
+					{
+						"name": "ST_SUB_CATEGORIA",
+						"type": "varchar"
+					},
+					{
+						"name": "QT_NOTA_SUB_CATEGORIA_PROD",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "DIM_MC_SUB_CATEGORIA_PROD"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/fiapersdb')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ETL')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Dados_Entrega_CentroDistribuicao_v2",
+								"type": "DatasetReference"
+							},
+							"name": "readExcel"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "sinkCategoria",
+								"type": "DatasetReference"
+							},
+							"name": "sinkCategoriaProd"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkCD",
+								"type": "DatasetReference"
+							},
+							"name": "sinkCD"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkBairro",
+								"type": "DatasetReference"
+							},
+							"name": "sinkBairro"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkCidade",
+								"type": "DatasetReference"
+							},
+							"name": "sinkCidade"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkColecao",
+								"type": "DatasetReference"
+							},
+							"name": "sinkColecao"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkSubcategoria",
+								"type": "DatasetReference"
+							},
+							"name": "sinkSubcategoria"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkProduto",
+								"type": "DatasetReference"
+							},
+							"name": "sinkProduto"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkRegiao",
+								"type": "DatasetReference"
+							},
+							"name": "sinkRegiao"
+						},
+						{
+							"dataset": {
+								"referenceName": "sinkFato",
+								"type": "DatasetReference"
+							},
+							"name": "sinkFato"
+						}
+					],
+					"transformations": [
+						{
+							"name": "castGrouped"
+						},
+						{
+							"name": "fixesDuplicates"
+						},
+						{
+							"name": "hashingDims"
+						},
+						{
+							"name": "dimBairro"
+						},
+						{
+							"name": "dimCategoriaProd"
+						},
+						{
+							"name": "dimCD"
+						},
+						{
+							"name": "dimCidade"
+						},
+						{
+							"name": "dimRegiao"
+						},
+						{
+							"name": "dimProduto"
+						},
+						{
+							"name": "dimSubcategoria"
+						},
+						{
+							"name": "dimColecao"
+						},
+						{
+							"name": "FtoEntrega"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          NR_CLIENTE as string,",
+						"          NOME_CLIENTE as string,",
+						"          NR_ESTRELAS as string,",
+						"          ST_CLIENTE as string,",
+						"          DT_NASCIMENTO as string,",
+						"          SIGLA_ESTADO as string,",
+						"          NOME_ESTADO as string,",
+						"          GENTILICO as string,",
+						"          NOME_REGIAO as string,",
+						"          NOME_CIDADE as string,",
+						"          NR_POPULACAO as string,",
+						"          CODIGO_IBGE as string,",
+						"          ALTITUDE as string,",
+						"          NOME_BAIRRO as string,",
+						"          NR_POPULACAO_BAIRRO as string,",
+						"          NR_NIVEL_SEGURANCA as string,",
+						"          NOME_LOGRADOURO as string,",
+						"          NR_LOGRADOURO as string,",
+						"          NR_CEP as string,",
+						"          NR_PEDIDO as string,",
+						"          NR_ITEM as string,",
+						"          DT_COMPLETA_PEDIDO as string,",
+						"          DT_PREVISTA_ENTREGA as string,",
+						"          CATEGORIA as string,",
+						"          ST_CATEGORIA as string,",
+						"          NR_AVALIACAO_CATEGORIA as string,",
+						"          SUBCATEGORIA as string,",
+						"          ST_SUB_CATEGORIA as string,",
+						"          NR_AVALIACAO_SUB_CATEGORIA as string,",
+						"          NOME_PRODUTO as string,",
+						"          EMBALAGEM as string,",
+						"          VL_UNITARIO as string,",
+						"          QUANTIDADE as string,",
+						"          VL_TOTAL as string,",
+						"          {%ICMS} as string,",
+						"          CD_CD as string,",
+						"          NOME_CENTRO_DISTRIBUICAO as string,",
+						"          SIGLA_ESTADO_CD as string,",
+						"          NOME_ESTADO_CD as string,",
+						"          NOME_CIDADE_CD as string,",
+						"          BAIRRO as string,",
+						"          DT_OFICIAL_ENTREGA as string,",
+						"          NOME_ENTREGADOR as string,",
+						"          QT_PROD_ENTREGUE as string,",
+						"          NOTA_EMBALAGEM as string,",
+						"          NOTA_PONTUALIDADE as string,",
+						"          NOTA_CORTESIA as string,",
+						"          {STATUS VENDA} as string,",
+						"          ORIGEM_VENDA as string,",
+						"          FORMA_PAGTO as string,",
+						"          TIPO_VENDA as string",
+						"     ),",
+						"     allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     limit: 100,",
+						"     ignoreNoFilesFound: false) ~> readExcel",
+						"fixesDuplicates cast(output(",
+						"          NR_CLIENTE as string,",
+						"          NOME_CLIENTE as string,",
+						"          NR_ESTRELAS as integer,",
+						"          ST_CLIENTE as string,",
+						"          DT_NASCIMENTO as date,",
+						"          GENTILICO as string,",
+						"          NOME_REGIAO as string,",
+						"          NOME_CIDADE as string,",
+						"          NR_POPULACAO as integer,",
+						"          CODIGO_IBGE as integer,",
+						"          ALTITUDE as integer,",
+						"          NOME_BAIRRO as string,",
+						"          NR_POPULACAO_BAIRRO as integer,",
+						"          NR_NIVEL_SEGURANCA as integer,",
+						"          NOME_LOGRADOURO as string,",
+						"          NR_LOGRADOURO as integer,",
+						"          NR_CEP as integer,",
+						"          NR_PEDIDO as integer,",
+						"          NR_ITEM as integer,",
+						"          DT_COMPLETA_PEDIDO as date,",
+						"          DT_PREVISTA_ENTREGA as date,",
+						"          CATEGORIA as string,",
+						"          ST_CATEGORIA as string,",
+						"          NR_AVALIACAO_CATEGORIA as integer,",
+						"          SUBCATEGORIA as string,",
+						"          ST_SUB_CATEGORIA as string,",
+						"          NR_AVALIACAO_SUB_CATEGORIA as integer,",
+						"          NOME_PRODUTO as string,",
+						"          EMBALAGEM as string,",
+						"          VL_UNITARIO as double,",
+						"          QUANTIDADE as integer,",
+						"          VL_TOTAL as double,",
+						"          {%ICMS} as string,",
+						"          CD_CD as string,",
+						"          NOME_CENTRO_DISTRIBUICAO as string,",
+						"          DT_OFICIAL_ENTREGA as date,",
+						"          NOME_ENTREGADOR as string,",
+						"          QT_PROD_ENTREGUE as integer,",
+						"          NOTA_EMBALAGEM as integer,",
+						"          NOTA_PONTUALIDADE as integer,",
+						"          NOTA_CORTESIA as integer,",
+						"          {STATUS VENDA} as string,",
+						"          ORIGEM_VENDA as string,",
+						"          FORMA_PAGTO as string,",
+						"          TIPO_VENDA as string",
+						"     ),",
+						"     errors: true) ~> castGrouped",
+						"readExcel select(skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> fixesDuplicates",
+						"castGrouped derive(SK_BAIRRO = crc32(concat(NOME_BAIRRO,NOME_CIDADE,NOME_ESTADO,toString(NR_POPULACAO_BAIRRO),toString(NR_POPULACAO),toString(NR_NIVEL_SEGURANCA))),",
+						"          SK_CIDADE = crc32(concat(NOME_CIDADE,NOME_ESTADO)),",
+						"          SK_ESTADO = crc32(concat(NOME_ESTADO)),",
+						"          SK_REGIAO = crc32(NOME_REGIAO),",
+						"          SK_CATEGORIA_PROD = crc32(CATEGORIA, ST_CATEGORIA),",
+						"          SK_CENTRO_DISTRIBUICAO = crc32(CD_CD),",
+						"          SK_COLECAO_STATUS = crc32(concat(FORMA_PAGTO, ORIGEM_VENDA, {STATUS VENDA}, TIPO_VENDA)),",
+						"          SK_FUNCIONARIO = crc32(NOME_ENTREGADOR),",
+						"          SK_PRODUTO = crc32(NOME_PRODUTO),",
+						"          SK_SUB_CATEGORIA_PROD = crc32(SUBCATEGORIA),",
+						"          SK_MC_TEMPO = concat(toString(year(DT_COMPLETA_PEDIDO)),toString(month(DT_COMPLETA_PEDIDO)),toString(dayOfMonth(DT_COMPLETA_PEDIDO))),",
+						"          SK_CLIENTE = NR_CLIENTE,",
+						"          SK_MC_PESQ_SATISF_PROD = crc32(concat(toString(DT_COMPLETA_PEDIDO),NOME_CENTRO_DISTRIBUICAO,NOME_PRODUTO,NOME_ENTREGADOR,NR_CLIENTE,{STATUS VENDA},{STATUS VENDA},ORIGEM_VENDA,FORMA_PAGTO,toString(NR_PEDIDO),toString(VL_UNITARIO),toString(QUANTIDADE),toString(VL_TOTAL),toString(NOTA_EMBALAGEM),toString(NOTA_PONTUALIDADE),toString(NOTA_CORTESIA),toString(ORIGEM_VENDA)))) ~> hashingDims",
+						"hashingDims aggregate(groupBy(SK_BAIRRO,",
+						"          DIM_MC_CIDADE_SK_CIDADE = SK_CIDADE,",
+						"          NM_BAIRRO = NOME_BAIRRO,",
+						"          NR_POPULACAO,",
+						"          NR_NIVEL_SEGURANCA),",
+						"     count = count(SK_BAIRRO)) ~> dimBairro",
+						"hashingDims aggregate(groupBy(SK_CATEGORIA_PROD,",
+						"          NM_CATEGORIA_PROD = CATEGORIA,",
+						"          ST_CATEGORIA),",
+						"     QT_NOTA_CATEGORIA_PROD = count(NOTA_EMBALAGEM)) ~> dimCategoriaProd",
+						"hashingDims aggregate(groupBy(SK_CENTRO_DISTRIBUICAO,",
+						"          NM_CENTRO_DISTRIBUICAO = NOME_CENTRO_DISTRIBUICAO),",
+						"     count = count(SK_CENTRO_DISTRIBUICAO)) ~> dimCD",
+						"hashingDims aggregate(groupBy(SK_CIDADE,",
+						"          DIM_MC_ESTADO_SK_ESTADO = SK_ESTADO,",
+						"          NM_CIDADE = NOME_CIDADE,",
+						"          NR_POPULACAO,",
+						"          CD_IBGE = CODIGO_IBGE,",
+						"          NR_ALTITUDE_MAR = ALTITUDE),",
+						"     count = count(SK_CIDADE)) ~> dimCidade",
+						"hashingDims aggregate(groupBy(SK_REGIAO,",
+						"          NM_REGIAO = NOME_REGIAO),",
+						"     count = count(SK_REGIAO)) ~> dimRegiao",
+						"hashingDims aggregate(groupBy(SK_PRODUTO,",
+						"          DIM_MC_SUB_PROD = SK_SUB_CATEGORIA_PROD,",
+						"          NM_PRODUTO = NOME_PRODUTO,",
+						"          NM_TIPO_EMBALAGEM = EMBALAGEM),",
+						"     count = count(NOME_PRODUTO)) ~> dimProduto",
+						"hashingDims aggregate(groupBy(SK_SUB_CATEGORIA_PROD,",
+						"          DIM_MC_CATEGORIA_PROD = SK_CATEGORIA_PROD,",
+						"          NM_SUB_CATEGORIA_PROD = SUBCATEGORIA,",
+						"          ST_SUB_CATEGORIA),",
+						"     QT_NOTA_SUB_CATEGORIA_PROD = avg(NR_AVALIACAO_SUB_CATEGORIA)) ~> dimSubcategoria",
+						"hashingDims aggregate(groupBy(SK_COLECAO_STATUS,",
+						"          DS_FORMA_PAGTO = FORMA_PAGTO,",
+						"          DS_ORIGEM_VENDA = ORIGEM_VENDA,",
+						"          DS_STATUS_VENDA = {STATUS VENDA},",
+						"          DS_TIPO_VNDA = TIPO_VENDA),",
+						"     count = count(SK_COLECAO_STATUS)) ~> dimColecao",
+						"hashingDims aggregate(groupBy(SK_MC_PESQ_SATISF_PROD,",
+						"          DIM_MC_TEMPO_SK_MC_TEMPO = SK_MC_TEMPO,",
+						"          DIM_MC_BAIRRO_SK_BAIRRO = SK_BAIRRO,",
+						"          DIM_MC_DISTRIBUICAO = SK_CENTRO_DISTRIBUICAO,",
+						"          DIM_MC_PRODUTO_SK_PRODUTO = SK_PRODUTO,",
+						"          DIM_MC_FUNCIONARIO = SK_FUNCIONARIO,",
+						"          DIM_MC_CLIENTE_SK_CLIENTE = SK_CLIENTE,",
+						"          DIM_MC_COLECAO_STATUS = SK_COLECAO_STATUS,",
+						"          SK_PEDIDO_VENDA = NR_PEDIDO),",
+						"     VL_UNITARIO = avg(VL_UNITARIO),",
+						"          QT_VENDA = sum(QUANTIDADE),",
+						"          VL_TOT_VENDA = sum(VL_TOTAL),",
+						"          VL_PERC_ICMS = avg(toInteger(regexReplace({%ICMS},'%',''))),",
+						"          QT_VENDA_ENTREGUE = avg(QT_PROD_ENTREGUE),",
+						"          QT_NOTA_EMBALAGEM = avg(NOTA_EMBALAGEM),",
+						"          QT_NOTA_PONTUALIDADE = avg(NOTA_PONTUALIDADE),",
+						"          QT_NOTA_CORTESIA = avg(NOTA_CORTESIA),",
+						"          NR_PEDIDO_ORIGEM = first(NR_PEDIDO),",
+						"          NR_ITEM_PEDIDO_ORIGEM = first(NR_PEDIDO)) ~> FtoEntrega",
+						"dimCategoriaProd sink(allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_CATEGORIA_PROD as decimal(28,0),",
+						"          NM_CATEGORIA_PROD as string,",
+						"          ST_CATEGORIA as string,",
+						"          QT_NOTA_CATEGORIA_PROD as decimal(2,0)",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[DIM_MC_CATEGORIA_PROD]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     saveOrder: 1,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          SK_CATEGORIA_PROD,",
+						"          NM_CATEGORIA_PROD,",
+						"          ST_CATEGORIA,",
+						"          QT_NOTA_CATEGORIA_PROD",
+						"     )) ~> sinkCategoriaProd",
+						"dimCD sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_CENTRO_DISTRIBUICAO as decimal(28,0),",
+						"          NM_CENTRO_DISTRIBUICAO as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[DIM_MC_CENTRO_DISTRIBUICAO]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkCD",
+						"dimBairro sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_BAIRRO as decimal(28,0),",
+						"          DIM_MC_CIDADE_SK_CIDADE as decimal(28,0),",
+						"          NM_BAIRRO as string,",
+						"          NR_POPULACAO as decimal(10,0),",
+						"          NR_NIVEL_SEGURANCA as decimal(1,0)",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from\\n[dbo].[DIM_MC_BAIRRO]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkBairro",
+						"dimCidade sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_CIDADE as decimal(28,0),",
+						"          DIM_MC_ESTADO_SK_ESTADO as decimal(28,0),",
+						"          NM_CIDADE as string,",
+						"          NR_POPULACAO as decimal(10,0),",
+						"          CD_IBGE as decimal(8,0),",
+						"          NR_ALTITUDE_MAR as decimal(8,0)",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from \\n[dbo].[DIM_MC_CIDADE]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError',",
+						"     mapColumn(",
+						"          SK_CIDADE,",
+						"          DIM_MC_ESTADO_SK_ESTADO,",
+						"          NM_CIDADE,",
+						"          NR_POPULACAO,",
+						"          CD_IBGE,",
+						"          NR_ALTITUDE_MAR",
+						"     )) ~> sinkCidade",
+						"dimColecao sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_COLECAO_STATUS as decimal(28,0),",
+						"          DS_FORMA_PAGTO as string,",
+						"          DS_ORIGEM_VENDA as string,",
+						"          DS_STATUS_VENDA as string,",
+						"          DS_TIPO_VNDA as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[DIM_MC_COLECAO_STATUS]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkColecao",
+						"dimSubcategoria sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_SUB_CATEGORIA_PROD as decimal(28,0),",
+						"          DIM_MC_CATEGORIA_PROD as decimal(28,0),",
+						"          NM_SUB_CATEGORIA_PROD as string,",
+						"          ST_SUB_CATEGORIA as string,",
+						"          QT_NOTA_SUB_CATEGORIA_PROD as decimal(2,0)",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[DIM_MC_SUB_CATEGORIA_PROD]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkSubcategoria",
+						"dimProduto sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_PRODUTO as decimal(28,0),",
+						"          DIM_MC_SUB_PROD as decimal(28,0),",
+						"          NM_PRODUTO as string,",
+						"          NM_TIPO_EMBALAGEM as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[DIM_MC_PRODUTO]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkProduto",
+						"dimRegiao sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_REGIAO as decimal(28,0),",
+						"          NM_REGIAO as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[DIM_MC_REGIAO]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkRegiao",
+						"FtoEntrega sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          SK_MC_PESQ_SATISF_PROD as decimal(28,0),",
+						"          DIM_MC_TEMPO_SK_MC_TEMPO as decimal(28,0),",
+						"          DIM_MC_BAIRRO_SK_BAIRRO as decimal(28,0),",
+						"          DIM_MC_DISTRIBUICAO as decimal(28,0),",
+						"          DIM_MC_PRODUTO_SK_PRODUTO as decimal(28,0),",
+						"          DIM_MC_FUNCIONARIO as decimal(28,0),",
+						"          DIM_MC_CLIENTE_SK_CLIENTE as decimal(28,0),",
+						"          DIM_MC_COLECAO_STATUS as decimal(28,0),",
+						"          SK_PEDIDO_VENDA as decimal(28,0),",
+						"          VL_UNITARIO as decimal(10,2),",
+						"          QT_VENDA as decimal(10,4),",
+						"          VL_TOT_VENDA as decimal(10,2),",
+						"          VL_PERC_ICMS as decimal(8,2),",
+						"          QT_VENDA_ENTREGUE as decimal(10,4),",
+						"          QT_NOTA_EMBALAGEM as decimal(2,0),",
+						"          QT_NOTA_PONTUALIDADE as decimal(2,0),",
+						"          QT_NOTA_CORTESIA as decimal(2,0),",
+						"          NR_PEDIDO_ORIGEM as integer,",
+						"          NR_ITEM_PEDIDO_ORIGEM as integer",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     preSQLs:['delete from [dbo].[FTO_ENTREGA_PRD_PESQ_SATISF_CD]'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkFato"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Dados_Entrega_CentroDistribuicao_v2')]",
+				"[concat(variables('factoryId'), '/datasets/sinkCategoria')]",
+				"[concat(variables('factoryId'), '/datasets/sinkCD')]",
+				"[concat(variables('factoryId'), '/datasets/sinkBairro')]",
+				"[concat(variables('factoryId'), '/datasets/sinkCidade')]",
+				"[concat(variables('factoryId'), '/datasets/sinkColecao')]",
+				"[concat(variables('factoryId'), '/datasets/sinkSubcategoria')]",
+				"[concat(variables('factoryId'), '/datasets/sinkProduto')]",
+				"[concat(variables('factoryId'), '/datasets/sinkRegiao')]",
+				"[concat(variables('factoryId'), '/datasets/sinkFato')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_ETL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ETL Trigger",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "ETL",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"readExcel": {},
+									"sinkCategoriaProd": {},
+									"sinkCD": {},
+									"sinkBairro": {},
+									"sinkCidade": {},
+									"sinkColecao": {},
+									"sinkSubcategoria": {},
+									"sinkProduto": {},
+									"sinkRegiao": {},
+									"sinkFato": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-04-20T22:57:09Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/ETL')]"
+			]
+		}
+	]
+}
